@@ -1,16 +1,14 @@
-# Diagram ERD — system magazynowy
-
-Diagram przedstawia strukturę relacyjnej bazy danych systemu magazynowego w PostgreSQL. Pokazuje tabele, klucze główne (PK), klucze obce (FK) oraz najważniejsze relacje.
+# Diagram ERD
 
 ```mermaid
 erDiagram
-    KATEGORIE ||--o{ PRODUKTY : "grupuje"
-    DOSTAWCY ||--o{ DOKUMENTY_PRZYJECIA : "dostarcza"
-    PRODUKTY ||--o| STANY_MAGAZYNOWE : "ma stan"
-    DOKUMENTY_PRZYJECIA ||--|{ POZYCJE_PRZYJECIA : "zawiera"
-    PRODUKTY ||--o{ POZYCJE_PRZYJECIA : "wystepuje"
-    DOKUMENTY_WYDANIA ||--|{ POZYCJE_WYDANIA : "zawiera"
-    PRODUKTY ||--o{ POZYCJE_WYDANIA : "wystepuje"
+    KATEGORIE ||--o{ PRODUKTY : zawiera
+    DOSTAWCY ||--o{ DOKUMENTY_PRZYJECIA : dostarcza
+    PRODUKTY ||--o| STANY_MAGAZYNOWE : stan
+    DOKUMENTY_PRZYJECIA ||--|{ POZYCJE_PRZYJECIA : zawiera
+    PRODUKTY ||--o{ POZYCJE_PRZYJECIA : produkt
+    DOKUMENTY_WYDANIA ||--|{ POZYCJE_WYDANIA : zawiera
+    PRODUKTY ||--o{ POZYCJE_WYDANIA : produkt
 
     KATEGORIE {
         bigint kategoria_id PK
@@ -35,7 +33,7 @@ erDiagram
     }
 
     STANY_MAGAZYNOWE {
-        bigint produkt_id PK, FK
+        bigint produkt_id PK
         integer ilosc
         timestamptz zaktualizowano
     }
@@ -68,7 +66,4 @@ erDiagram
     }
 ```
 
-**Oznaczenia:**
-- `PK` — klucz główny, identyfikuje rekord.
-- `FK` — klucz obcy, łączy rekord z inną tabelą.
-- `UK` — wartość unikalna, która nie może się powtarzać.
+**PK** – klucz główny, **FK** – klucz obcy, **UK** – wartość unikalna.
