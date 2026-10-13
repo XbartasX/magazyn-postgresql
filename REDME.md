@@ -102,4 +102,4 @@ Celem projektu było zaprojektowanie relacyjnej bazy danych oraz wykorzystanie w
 
 ### Raport wartości magazynu
 
-![Raport wartości magazynu](docs/screenshots/raporty.png)
+![Raport wartości magazynu](docs/screenshots/magazyn-postgresql.png)
