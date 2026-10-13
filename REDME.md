@@ -89,3 +89,17 @@ Diagram relacji między tabelami znajduje się w pliku [`docs/diagram-erd.md`](d
 ## Cel projektu
 
 Celem projektu było zaprojektowanie relacyjnej bazy danych oraz wykorzystanie w praktyce kluczy głównych i obcych, ograniczeń integralności, funkcji, triggerów, widoków i zapytań raportowych.
+
+## Zrzuty ekranu
+
+### Struktura bazy danych
+
+![Struktura bazy danych](docs/screenshots/struktura-bazy.png)
+
+### Stany magazynowe
+
+![Stany magazynowe](docs/screenshots/stany-magazynowe.png)
+
+### Raport wartości magazynu
+
+![Raport wartości magazynu](docs/screenshots/raporty.png)
