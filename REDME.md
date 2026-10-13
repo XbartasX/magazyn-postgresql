@@ -1,77 +1,74 @@
+# System magazynowy w PostgreSQL
 
-# System magazynowy — PostgreSQL
+Projekt relacyjnej bazy danych do obsługi magazynu. Baza umożliwia przechowywanie informacji o produktach, kategoriach, dostawcach oraz dokumentach przyjęcia i wydania towaru.
 
-Projekt relacyjnej bazy danych do obsługi podstawowych procesów magazynowych. Obejmuje ewidencję produktów, dostawców, przyjęć i wydań towaru oraz kontrolę stanów magazynowych.
+## Zastosowane rozwiązania
 
-## Funkcjonalności
-
-- Zarządzanie produktami i kategoriami.
-- Ewidencja dostawców.
-- Rejestrowanie dokumentów przyjęcia i wydania.
-- Automatyczne tworzenie początkowego stanu magazynowego dla nowego produktu.
-- Aktualizacja stanów po zatwierdzeniu dokumentów.
-- Kontrola dostępnej ilości towaru przed zatwierdzeniem wydania.
-- Wykrywanie produktów wymagających uzupełnienia.
-- Raportowanie wartości zapasów i historii dokumentów.
+- Relacje między tabelami z wykorzystaniem kluczy głównych i obcych.
+- Ograniczenia integralności danych, w tym `CHECK` i `UNIQUE`.
+- Funkcje napisane w PL/pgSQL do zatwierdzania przyjęć i wydań.
+- Trigger tworzący początkowy stan magazynowy po dodaniu produktu.
+- Kontrola dostępnej ilości towaru podczas zatwierdzania wydania.
+- Widoki przedstawiające stany magazynowe i produkty wymagające uzupełnienia.
+- Zapytania SQL do generowania raportów.
 
 ## Technologie
 
 - PostgreSQL
-- SQL
-- PL/pgSQL
+- SQL i PL/pgSQL
 - DBeaver
-- Git i GitHub
 
 ## Struktura projektu
 
 ```text
 magazyn-postgresql/
 ├── README.md
-├── sql/
-│   ├── 01_schema.sql
-│   ├── 02_functions_triggers.sql
-│   ├── 03_sample_data.sql
-│   ├── 04_views.sql
-│   ├── 05_reports.sql
-│   └── 06_tests.sql
-└── docs/
-    └── diagram-erd.md
+├── docs/
+│   └── diagram-erd.md
+└── sql/
+    ├── 01_schema.sql
+    ├── 02_functions_triggers.sql
+    ├── 03_sample_data.sql
+    ├── 04_views.sql
+    ├── 05_reports.sql
+    └── 06_tests.sql
 ```
 
 ## Struktura bazy danych
 
-Baza składa się z ośmiu tabel:
+Baza zawiera osiem tabel:
 
-- `kategorie` — kategorie produktów.
-- `dostawcy` — dane dostawców.
-- `produkty` — dane produktów i ich ceny.
-- `stany_magazynowe` — aktualna ilość towaru.
-- `dokumenty_przyjecia` — dokumenty dostaw.
-- `pozycje_przyjecia` — produkty ujęte w dostawach.
-- `dokumenty_wydania` — dokumenty wydań.
-- `pozycje_wydania` — produkty ujęte w wydaniach.
+| Tabela | Przeznaczenie |
+|---|---|
+| `kategorie` | Kategorie produktów |
+| `dostawcy` | Dane dostawców |
+| `produkty` | Informacje o produktach |
+| `stany_magazynowe` | Aktualne ilości produktów |
+| `dokumenty_przyjecia` | Dokumenty przyjęcia towaru |
+| `pozycje_przyjecia` | Produkty ujęte w przyjęciach |
+| `dokumenty_wydania` | Dokumenty wydania towaru |
+| `pozycje_wydania` | Produkty ujęte w wydaniach |
 
-Dodatkowo projekt wykorzystuje dwa widoki, funkcje PL/pgSQL, trigger oraz indeksy i ograniczenia integralności danych.
+Dodatkowo wykorzystano dwa widoki, trzy funkcje, trigger oraz indeksy.
 
-## Uruchomienie projektu
+## Uruchomienie
 
-Utwórz pustą bazę danych PostgreSQL i otwórz połączenie z nią w DBeaverze.
+Do uruchomienia projektu potrzebny jest PostgreSQL i program umożliwiający wykonywanie zapytań SQL, np. DBeaver.
 
-Wykonuj skrypty w następującej kolejności:
+Skrypty należy wykonać w następującej kolejności:
 
-1. `01_schema.sql` — utworzenie schematu, tabel i relacji.
-2. `02_functions_triggers.sql` — utworzenie funkcji i triggera.
-3. `03_sample_data.sql` — dodanie i zatwierdzenie przykładowych dokumentów.
-4. `04_views.sql` — utworzenie widoków.
-5. `05_reports.sql` — przykładowe zapytania raportowe.
+1. `01_schema.sql` tworzy schemat, tabele i relacje.
+2. `02_functions_triggers.sql` tworzy funkcje i trigger.
+3. `03_sample_data.sql` dodaje przykładowe dane i zatwierdza dokumenty.
+4. `04_views.sql` tworzy widoki.
+5. `05_reports.sql` zawiera zapytania raportowe.
+6. `06_tests.sql` zawiera zapytania sprawdzające poprawność danych.
 
-Każdy skrypt uruchamiaj w edytorze SQL połączonym z nową bazą danych. Skrypt raportowy zawiera kilka zapytań, które można wykonywać pojedynczo.
-
-**Uwaga:** skrypty inicjalizacyjne są przeznaczone do uruchomienia na pustej bazie. Nie uruchamiaj ich ponownie na bazie zawierającej już te same tabele i przykładowe dane.
+Skrypty inicjalizacyjne należy uruchomić na pustej bazie danych. Nie należy wykonywać ich ponownie na bazie zawierającej już te same tabele i dane.
 
 ## Przykładowe zapytania
 
-Aktualny stan magazynu:
+Aktualne stany magazynowe:
 
 ```sql
 SELECT *
@@ -85,6 +82,10 @@ SELECT *
 FROM magazyn_demo.v_produkty_do_uzupelnienia;
 ```
 
+## Diagram ERD
+
+Diagram relacji między tabelami znajduje się w pliku [`docs/diagram-erd.md`](docs/diagram-erd.md).
+
 ## Cel projektu
 
-Celem projektu jest praktyczne wykorzystanie relacyjnego modelowania danych, kluczy głównych i obcych, ograniczeń integralności, indeksów, widoków, funkcji oraz triggerów w PostgreSQL.
+Celem projektu było zaprojektowanie relacyjnej bazy danych oraz wykorzystanie w praktyce kluczy głównych i obcych, ograniczeń integralności, funkcji, triggerów, widoków i zapytań raportowych.
