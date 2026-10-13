@@ -2,13 +2,13 @@
 
 ```mermaid
 erDiagram
-    KATEGORIE ||--o{ PRODUKTY : zawiera
+    KATEGORIE ||--o{ PRODUKTY : grupuje
     DOSTAWCY ||--o{ DOKUMENTY_PRZYJECIA : dostarcza
-    PRODUKTY ||--o| STANY_MAGAZYNOWE : stan
-    DOKUMENTY_PRZYJECIA ||--|{ POZYCJE_PRZYJECIA : zawiera
-    PRODUKTY ||--o{ POZYCJE_PRZYJECIA : produkt
-    DOKUMENTY_WYDANIA ||--|{ POZYCJE_WYDANIA : zawiera
-    PRODUKTY ||--o{ POZYCJE_WYDANIA : produkt
+    PRODUKTY ||--o| STANY_MAGAZYNOWE : posiada
+    DOKUMENTY_PRZYJECIA ||--o{ POZYCJE_PRZYJECIA : zawiera
+    PRODUKTY ||--o{ POZYCJE_PRZYJECIA : wystepuje
+    DOKUMENTY_WYDANIA ||--o{ POZYCJE_WYDANIA : zawiera
+    PRODUKTY ||--o{ POZYCJE_WYDANIA : wystepuje
 
     KATEGORIE {
         bigint kategoria_id PK
@@ -33,7 +33,7 @@ erDiagram
     }
 
     STANY_MAGAZYNOWE {
-        bigint produkt_id PK
+        bigint produkt_id PK, FK
         integer ilosc
         timestamptz zaktualizowano
     }
